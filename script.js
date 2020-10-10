@@ -1,6 +1,8 @@
 let body = document.body;
 let href = document.location.href;
 
+let now = new Date();
+
 let request = (href) => {
   let userName = href.split('=');
   if (userName[1]) {
@@ -11,7 +13,17 @@ let request = (href) => {
   return username;
 }
 
-fetch(`https://api.github.com/users/${request(href)}`)
+const getName = new Promise((resolve, reject) => {
+  setTimeout (() => request ? resolve(request) : reject('Имя не найдено'), 2000);
+})
+
+// const getDate = new Promise ((resolve, reject) => {
+//   setTimeout (() => now ? resolve(now) : reject('Дата не найдена'), 2000);
+// })
+
+
+Promise(getName)
+  .then ((request) => fetch(`https://api.github.com/users/${request(href)}`)
   .then(rep => rep.json())
   .then(json => {
   	const name = document.createElement('a');
@@ -38,4 +50,5 @@ fetch(`https://api.github.com/users/${request(href)}`)
   		bio.innerHTML = 'Информация о пользователе не доступна'
   	}
   	  body.append(bio);
-  })
+  }))
+  .catch(err => console.log(err));
