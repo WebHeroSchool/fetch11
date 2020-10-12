@@ -17,12 +17,16 @@ const getName = new Promise((resolve, reject) => {
   setTimeout (() => request ? resolve(request) : reject('Имя не найдено'), 2000);
 })
 
-// const getDate = new Promise ((resolve, reject) => {
-//   setTimeout (() => now ? resolve(now) : reject('Дата не найдена'), 2000);
-// })
+const getDate = new Promise ((resolve, reject) => {
+  setTimeout (() => now ? resolve(now) : reject('Дата не найдена'), 2000);
+})
 
 
-Promise(getName)
+Promise.all([getName, getDate])
+  .then ((now) => {
+    const time = document.createElement('p');
+    time.innerHTML = now;
+  })
   .then ((request) => fetch(`https://api.github.com/users/${request(href)}`)
   .then(rep => rep.json())
   .then(json => {
@@ -50,5 +54,5 @@ Promise(getName)
   		bio.innerHTML = 'Информация о пользователе не доступна'
   	}
   	  body.append(bio);
-  }))
+  })
   .catch(err => console.log(err));
