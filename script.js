@@ -28,6 +28,7 @@ Promise.all([getName, getDate])
     const time = document.createElement('p');
     time.innerHTML = now;
     document.body.append(time);
+    return t;
   })
   .then(rep => rep.json())
   .then(json => {
