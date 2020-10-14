@@ -1,6 +1,9 @@
 let body = document.body;
 let href = document.location.href;
 
+let page = document.getElementById('page');
+let preloader = document.querySelector('.loadingio-spinner-ripple-y8gjy6g568a');
+
 let now = new Date();
 
 let request = (href) => {
@@ -12,6 +15,11 @@ let request = (href) => {
   }
   return username;
 }
+
+setInterval(() => {
+  let preloader = document.querySelector('.loadingio-spinner-ripple-y8gjy6g568a');
+  preloader.classList.add('visibility');
+}, 2000);
 
 const getName = new Promise((resolve, reject) => {
   setTimeout (() => request ? resolve(request) : reject('Имя не найдено'), 2000);
