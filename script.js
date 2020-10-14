@@ -24,9 +24,10 @@ const getDate = new Promise ((resolve, reject) => {
 
 Promise.all([getName, getDate])
   .then (([request, now]) => fetch(`https://api.github.com/users/${request(href)}`)
-  .then ((now) => {
+  .then (t => {
     const time = document.createElement('p');
     time.innerHTML = now;
+    document.body.append(time);
   })
   .then(rep => rep.json())
   .then(json => {
